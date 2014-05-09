@@ -54,7 +54,7 @@ void Izvade() {
 			printf("	#	");
 
 	for (j = 0; j < n + 1; ++j){
-		if(j == 3) printf("= "); // 3 elements + 4th after = sign
+		if(j == n) printf("= "); // 3 elements + 4th after = sign
 								 /*******************************
 								 For example:
 								 0.48 + 0.23 + 0.37 = 1.44 <- 4th element
