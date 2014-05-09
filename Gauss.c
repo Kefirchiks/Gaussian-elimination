@@ -6,14 +6,14 @@
 #include <tchar.h>
 #include <conio.h>
 #include <stdlib.h>
-/*******************************************************************
-*	Gaussian-Jordan elimination script                             *
-*   Written in C                                                   *
-*          by Klāvs Ceicāns                                        *
-*         	(Github - Kefirchiks | https://github.com/Kefirchiks ) *
-********************************************************************
-*	SHARING IS CARING											   *
-********************************************************************
+/************************************************************************
+*	Gaussian-Jordan elimination script                              *
+*   Written in C                                                   	*
+*          by Klāvs Ceicāns                                        	*
+*         	(Github - Kefirchiks | https://github.com/Kefirchiks )  *
+*************************************************************************
+*	SHARING IS CARING					        *
+*************************************************************************
 */
 int n;
 float a[3][4]; // [3] - line count ; [4] - number of elements in line
