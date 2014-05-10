@@ -1,10 +1,4 @@
-﻿#pragma hdrstop
-#pragma argsused
-#pragma package(smart_init)
-/****************/
 #include <stdio.h>
-#include <tchar.h>
-#include <conio.h>
 #include <stdlib.h>
 /************************************************************************
 *	Gaussian-Jordan elimination script                              *
@@ -16,7 +10,7 @@
 *************************************************************************
 */
 int n;
-float a[3][4]; // [3] - line count ; [4] - number of elements in line
+float **a; // Equation elements
 
 void Izvade();
 void Reizinasana();
@@ -28,10 +22,16 @@ int main() {
 
 	FILE *fin = fopen("gauss.in", "r"); // Execute 'gauss.in' file
 
-	fscanf(fin, "%d", &n);
-	for (i = 0; i < n; ++i)
-		for (j = 0; j < n + 1; ++j)
+	fscanf(fin, "%d", &n);	
+
+	a = (float **) calloc( n , sizeof(float*));
+
+	for (i = 0; i < n; ++i){		
+		a[i] = (float *) calloc( n + 1 , sizeof(float));
+		for (j = 0; j < n + 1; ++j){
 			fscanf(fin, "%f", &a[i][j]);
+		}
+	}
 
 	fclose(fin);
 
@@ -48,44 +48,49 @@ void Izvade() {
 	int i,j;
 
 	for (i = 0; i < n; ++i) {
-		if (i != 1)
-			printf("	|	");
+		if (i%2 == 0)
+			printf("\t|\t");
 		else
-			printf("	#	");
+			printf("\t#\t");
 
-	for (j = 0; j < n + 1; ++j){
-		if(j == n) printf("= "); // 3 elements + 4th after = sign
-								 /*******************************
-								 For example:
-								 0.48 + 0.23 + 0.37 = 1.44 <- 4th element
-								 ********************************/
-	printf("%.4f\t", a[i][j]);
+		for (j = 0; j < n + 1; ++j){
+			if(j == n) printf("= "); // 3 elements + 4th after = sign
+									 /*******************************
+									 For example:
+									 0.48 + 0.23 + 0.37 = 1.44 <- 4th element
+									 ********************************/
+			printf("%.4f\t", a[i][j]);
+		}
+		printf("\n");
 	}
 	printf("\n");
-	}
-	printf("\n");
-	getch();
+
+	getchar();
 }
+
 void Dalisana() {
 	int i, j, k, max;
 	float t;
 	for (i = 0; i < n; ++i){
 		max = i;
-		for (j = i + 1; j < n; ++j)
+		for (j = i + 1; j < n; ++j){
 			if (a[j][i] > a[max][i])
 				max = j;
+		}
 		for (j = 0; j < n + 1; ++j) {
 			t = a[max][j];
 			a[max][j] = a[i][j];
 			a[i][j] = t;
 		}
-		for (j = n; j >= i; --j)
+		for (j = n; j >= i; --j){
 			for (k = i + 1; k < n; ++k) {
-			a[k][j] -= a[k][i]/a[i][i] * a[i][j];
-						Izvade();
+				a[k][j] -= a[k][i]/a[i][i] * a[i][j];
+				Izvade();
+			}
 		}
 	}
 }
+
 void Izslegsana() {
 	int i, j;
 	for (i = n - 1; i >= 0; --i) {
